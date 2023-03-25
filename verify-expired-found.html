@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Link Verification</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/bootstrap-4.6.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="content">
+        <div class="row">
+            <div class="col-12 text-center">
+                <img src="/image/token-ada.png" class="img-fluid content-img pb-2" alt="...">
+                <p class="judul mx-auto">Email Verification Link Expired</p>
+                <p class="description pb-0 mb-0">
+                    Looks like the verification link has expired. not to worry, we can send the link
+                    again to
+                </p>
+                <span class="email">at@gmail.com</span>
+
+                <div class="footer mx-auto mt-3">
+                    <a href="" class="btn btn-green" id="btn-resend">Resend Verification</a>
+                    <span class="counter float-right">05.00</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $("#btn-resend").click(function (e) {
+            e.preventDefault();
+            $(this).addClass('btn-disabled disabled');
+            $(this).removeClass('btn-green');
+            $(this).prop('disabled', true);
+            // Menampilkan counter ketika tombol diklik
+            $(".counter").show();
+            var examTime = 60 * 5;
+            let display = $('.counter');
+            startTimer(examTime, display);
+        });
+
+        function startTimer(duration, display) {
+            var timer = duration;
+            var minutes, seconds;
+            var warning = 60;
+            var ok = false;
+            var form = document.forms.exam;
+
+            var t = setInterval(function () {
+                --timer
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                counter = minutes + ":" + seconds;
+                if (timer >= 0) {
+                    display.html(counter);
+                } else {
+                    display.html('00:00');
+                }
+
+                if (timer <= 0) {
+                    $('#btn-resend').removeClass('btn-disabled disabled');
+                    $('#btn-resend').addClass('btn-green');
+                    $('#btn-resend').prop('disabled', false);
+                }
+
+            }, 1000);
+        }
+    </script>
+
+</body>
+
+</html>
